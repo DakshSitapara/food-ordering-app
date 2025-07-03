@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from "react";
 import { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,8 +13,9 @@ import dishDetails from "@/lib/dishData";
 
 const allDishes = Object.values(dishDetails);
 
-export default function DishDetailPage({ params }: { params: { id: string } }) {
-  const dish = allDishes.find(d => d.id === params.id);
+export default function DishDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  const dish = allDishes.find(d => d.id === id);
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
 
@@ -27,7 +29,7 @@ export default function DishDetailPage({ params }: { params: { id: string } }) {
       image: dish.image,
       category: dish.category,
       quantity
-     });
+    });
     router.push("/cart");
   };
 
@@ -105,7 +107,7 @@ export default function DishDetailPage({ params }: { params: { id: string } }) {
                 </div>
                 <Button
                   className="w-full bg-green-600 hover:bg-green-700 text-lg py-4 transition-colors"
-                    onClick={handleAddToCart}
+                  onClick={handleAddToCart}
                 >
                   Add {quantity} to Cart - ₹{dish.price * quantity}
                 </Button>
