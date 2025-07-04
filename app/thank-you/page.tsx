@@ -11,21 +11,20 @@ import { v4 as uuidv4 } from 'uuid';
 export default function ThankYou() {
   const orderNumber = uuidv4().replace(/\D/g, '').slice(0, 3); // Generate a random 4-digit order number
   const estimatedTime = "25-30 minutes";
-  // const items = []; 
-  // const {clearCart} = useCart();
+  const { items, clearCart } = useCart();
 
-  // if (items.length === 0) return (
-  //   <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
-  //     <ShoppingBag className="h-24 w-24 text-gray-300 mb-6" />
-  //     <h1 className="text-3xl font-bold text-gray-900 mb-4">Your cart is empty</h1>
-  //     <p className="text-gray-600 mb-8">Add some delicious dishes to get started!</p>
-  //     <Link href="/food">
-  //       <Button className="bg-green-500 hover:bg-green-600">
-  //         Browse Menu
-  //       </Button>
-  //     </Link>
-  //   </div>
-  // );
+  if (items.length === 0) return (
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
+      <ShoppingBag className="h-24 w-24 text-gray-300 mb-6" />
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Your cart is empty</h1>
+      <p className="text-gray-600 mb-8">Add some delicious dishes to get started!</p>
+      <Link href="/food">
+        <Button className="bg-green-500 hover:bg-green-600">
+          Browse Menu
+        </Button>
+      </Link>
+    </div>
+  );
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -116,7 +115,7 @@ export default function ThankYou() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/food">
-              <Button className="bg-green-500 hover:bg-green-600">
+              <Button className="bg-green-500 hover:bg-green-600" onClick={clearCart}>
                 Order Again
               </Button>
             </Link>

@@ -46,7 +46,7 @@ export default function BillingDetailsPage() {
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
-    clearCart();
+    // clearCart();
     router.push("/thank-you");
   };
 
