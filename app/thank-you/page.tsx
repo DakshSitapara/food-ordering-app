@@ -1,32 +1,45 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle, Clock, MapPin } from "lucide-react";
-import { ShoppingBag } from "lucide-react";
+import { CheckCircle, Clock, MapPin, ShoppingBag } from "lucide-react";
 import { v4 as uuidv4 } from 'uuid';
 
-
 export default function ThankYou() {
+  const [lastOrder, setLastOrder] = useState<any[]>([]);
+  const [hasMounted, setHasMounted] = useState(false);
   const orderNumber = uuidv4().replace(/\D/g, '').slice(0, 3);
   const estimatedTime = "25-30 minutes";
-  const lastOrder = JSON.parse(localStorage.getItem('lastOrder') || '[]');
+
+  useEffect(() => {
+    const storedOrder = JSON.parse(localStorage.getItem("lastOrder") || "[]");
+    setLastOrder(storedOrder);
+    setHasMounted(true);
+  }, []);
+
   const clearLastOrder = () => {
-    localStorage.removeItem('lastOrder');
+    localStorage.removeItem("lastOrder");
   };
 
-  if (lastOrder.length === 0) return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
-      <ShoppingBag className="h-24 w-24 text-gray-300 mb-6" />
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Your cart is empty</h1>
-      <p className="text-gray-600 mb-8">Add some delicious dishes to get started!</p>
-      <Link href="/food">
-        <Button className="bg-green-500 hover:bg-green-600">
-          Browse Menu
-        </Button>
-      </Link>
-    </div>
-  );
+  if (!hasMounted) return null;
+
+  if (lastOrder.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
+        <ShoppingBag className="h-24 w-24 text-gray-300 mb-6" />
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">Your cart is empty</h1>
+        <p className="text-gray-600 mb-8">Add some delicious dishes to get started!</p>
+        <Link href="/food">
+          <Button className="bg-green-500 hover:bg-green-600">
+            Browse Menu
+          </Button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -40,36 +53,26 @@ export default function ThankYou() {
           </p>
         </div>
 
+        {/* Progress Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-green-500">1</span>
-              </div>
-              <h3 className="font-semibold mb-2">Order Confirmed</h3>
-              <p className="text-sm text-gray-600">Your order has been received and is being prepared</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-green-500">2</span>
-              </div>
-              <h3 className="font-semibold mb-2">Preparing</h3>
-              <p className="text-sm text-gray-600">Our chefs are preparing your meal with love</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-gray-400">3</span>
-              </div>
-              <h3 className="font-semibold mb-2 text-gray-400">On the Way</h3>
-              <p className="text-sm text-gray-400">Your order will be delivered soon</p>
-            </CardContent>
-          </Card>
+          {["Order Confirmed", "Preparing", "On the Way"].map((title, i) => (
+            <Card key={title}>
+              <CardContent className="p-6 text-center">
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 ${i < 2 ? "bg-orange-100" : "bg-gray-100"}`}>
+                  <span className={`text-2xl font-bold ${i < 2 ? "text-green-500" : "text-gray-400"}`}>{i + 1}</span>
+                </div>
+                <h3 className={`font-semibold mb-2 ${i === 2 ? "text-gray-400" : ""}`}>{title}</h3>
+                <p className={`text-sm ${i === 2 ? "text-gray-400" : "text-gray-600"}`}>
+                  {i === 0 && "Your order has been received and is being prepared"}
+                  {i === 1 && "Our chefs are preparing your meal with love"}
+                  {i === 2 && "Your order will be delivered soon"}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
+        {/* Order Info */}
         <Card className="mb-8">
           <CardContent className="p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -111,6 +114,7 @@ export default function ThankYou() {
           </CardContent>
         </Card>
 
+        {/* Actions */}
         <div className="text-center mb-8">
           <p className="text-gray-600 mb-4">
             We'll send you updates about your order via SMS and email.
@@ -121,12 +125,11 @@ export default function ThankYou() {
                 Order Again
               </Button>
             </Link>
-            <Button variant="outline">
-              Track Your Order
-            </Button>
+            <Button variant="outline">Track Your Order</Button>
           </div>
         </div>
 
+        {/* Rating Card */}
         <Card className="mt-8 bg-orange-50 border-orange-200">
           <CardContent className="p-6 text-center">
             <h3 className="text-lg font-semibold text-green-800 mb-2">
