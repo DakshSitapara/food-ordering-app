@@ -4,16 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Clock, MapPin } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
-import { useCart } from "@/lib/CartContext";
 import { v4 as uuidv4 } from 'uuid';
 
 
 export default function ThankYou() {
   const orderNumber = uuidv4().replace(/\D/g, '').slice(0, 3);
   const estimatedTime = "25-30 minutes";
-  const { items, clearCart } = useCart();
+  const lastOrder = JSON.parse(localStorage.getItem('lastOrder') || '[]');
+  const clearLastOrder = () => {
+    localStorage.removeItem('lastOrder');
+  };
 
-  if (items.length === 0) return (
+  if (lastOrder.length === 0) return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
       <ShoppingBag className="h-24 w-24 text-gray-300 mb-6" />
       <h1 className="text-3xl font-bold text-gray-900 mb-4">Your cart is empty</h1>
@@ -115,7 +117,7 @@ export default function ThankYou() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/food">
-              <Button className="bg-green-500 hover:bg-green-600" onClick={clearCart}>
+              <Button className="bg-green-500 hover:bg-green-600" onClick={clearLastOrder}>
                 Order Again
               </Button>
             </Link>

@@ -46,7 +46,8 @@ export default function BillingDetailsPage() {
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
-    // clearCart();
+    localStorage.setItem('lastOrder', JSON.stringify(items));
+    clearCart();
     router.push("/thank-you");
   };
 
