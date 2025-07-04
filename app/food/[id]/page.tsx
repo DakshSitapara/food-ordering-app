@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Star, Clock, Plus, Minus } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';    
-import { useCart } from "@/components/context/CartContext";
+import { useCart } from "@/lib/CartContext";
 import dishDetails from "@/lib/dishData";
 import { ShoppingCart } from "lucide-react";
 import toast from "react-hot-toast";

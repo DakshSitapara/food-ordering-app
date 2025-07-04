@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Star, Clock, Search, ShoppingCart } from "lucide-react";
-import { useCart } from "@/components/context/CartContext"; 
+import { useCart } from "@/lib/CartContext";
 import toast from "react-hot-toast";
 import dishDetails from "@/lib/dishData";
 

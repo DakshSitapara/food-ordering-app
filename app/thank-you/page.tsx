@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Clock, MapPin } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
-import { useCart } from "@/components/context/CartContext";
+import { useCart } from "@/lib/CartContext";
 import { v4 as uuidv4 } from 'uuid';
 
 
 export default function ThankYou() {
-  const orderNumber = uuidv4().replace(/\D/g, '').slice(0, 3); // Generate a random 4-digit order number
+  const orderNumber = uuidv4().replace(/\D/g, '').slice(0, 3);
   const estimatedTime = "25-30 minutes";
   const { items, clearCart } = useCart();
 

@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { CreditCard, Wallet, Banknote } from "lucide-react";
-import { useCart } from "@/components/context/CartContext";
+import { useCart } from "@/lib/CartContext";
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 

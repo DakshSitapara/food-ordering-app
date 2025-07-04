@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, Minus, Trash2, ShoppingBag } from "lucide-react";
-import { useCart } from "@/components/context/CartContext"; 
+import { useCart } from "@/lib/CartContext"; 
 
 function getTotalPrice(items: any[]) {
   return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
