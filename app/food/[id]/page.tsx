@@ -10,6 +10,8 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';    
 import { useCart } from "@/components/context/CartContext";
 import dishDetails from "@/lib/dishData";
+import { ShoppingCart } from "lucide-react";
+import toast from "react-hot-toast";
 
 const allDishes = Object.values(dishDetails);
 
@@ -18,6 +20,7 @@ export default function DishDetailPage({ params }: { params: Promise<{ id: strin
   const dish = allDishes.find(d => d.id === id);
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
+  const totalItemsInCart = useCart().items.reduce((total, item) => total + item.quantity, 0);
 
   const { addToCart } = useCart();
 
@@ -30,7 +33,8 @@ export default function DishDetailPage({ params }: { params: Promise<{ id: strin
       category: dish.category,
       quantity
     });
-    router.push("/cart");
+    toast.success(`${dish.name} added to cart!`);
+    setQuantity(1);
   };
 
   if (!dish) {
@@ -47,18 +51,29 @@ export default function DishDetailPage({ params }: { params: Promise<{ id: strin
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-6">
-        <Link
-          href="/food"
-          className="inline-flex items-center text-green-600 hover:text-green-700 mb-4 transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Menu
-        </Link>
+        <div className="flex items-center justify-between mb-4">
+          <Link
+            href="/food"
+            className="inline-flex items-center text-green-600 hover:text-green-700 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Menu
+          </Link>
+          <Link href="/cart" className="relative">
+            <ShoppingCart className="h-6 w-6 text-gray-700 hover:text-green-600" />
+            {totalItemsInCart > 0 && (
+              <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-1.5 rounded-full">
+                {totalItemsInCart}
+              </span>
+            )}
+          </Link>
+        </div>
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="relative flex-shrink-0 w-full lg:w-1/2">
             <img
               src={dish.image}
               alt={dish.name}
+              loading="lazy"
               className="w-full h-64 sm:h-80 lg:h-full object-cover rounded-xl shadow-md"
             />
             <Badge className="absolute top-3 left-3 bg-white/90 text-gray-800 shadow">

@@ -44,8 +44,9 @@ export default function BillingDetailsPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
+    clearCart();
     router.push("/thank-you");
   };
 
@@ -70,11 +71,11 @@ export default function BillingDetailsPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <form className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Billing Section */}
           <div className="lg:col-span-2 space-y-6">
             {/* Address Card */}
-            <Card>
+            {/* <Card>
               <CardHeader><CardTitle>Delivery Address</CardTitle></CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -112,13 +113,13 @@ export default function BillingDetailsPage() {
                   </div>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Payment Card */}
             <Card>
               <CardHeader><CardTitle>Payment Method</CardTitle></CardHeader>
               <CardContent>
-                <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
+                {/* <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
                   <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-gray-50">
                     <RadioGroupItem value="card" id="card" />
                     <CreditCard className="h-5 w-5" />
@@ -134,10 +135,10 @@ export default function BillingDetailsPage() {
                     <Banknote className="h-5 w-5" />
                     <Label htmlFor="cod" className="flex-1 cursor-pointer">Cash on Delivery</Label>
                   </div>
-                </RadioGroup>
+                </RadioGroup> */}
 
                 {/* Card Form */}
-                {paymentMethod === "card" && (
+                {/* {paymentMethod === "card" && (
                   <div className="mt-6 space-y-4">
                     <div>
                       <Label htmlFor="cardHolderName">Cardholder Name *</Label>
@@ -162,7 +163,7 @@ export default function BillingDetailsPage() {
                       </div>
                     </div>
                   </div>
-                )}
+                )} */}
               </CardContent>
             </Card>
           </div>
@@ -186,14 +187,30 @@ export default function BillingDetailsPage() {
                 <div className="flex justify-between"><span>Tax (5%)</span><span>₹{tax}</span></div>
                 <hr />
                 <div className="flex justify-between text-xl font-bold"><span>Total</span><span>₹{total}</span></div>
-                <Button type="submit" className="w-full bg-green-500 hover:bg-green-600 py-6 text-lg">Place Order - ₹{total}</Button>
-                <Button className="w-full bg-gray-500 hover:bg-gray-600 py-6 text-lg" onClick={() => router.push("/cart")}>Edit Cart</Button>
+                <Button
+                  className="w-full bg-green-500 hover:bg-green-600 py-6 text-lg"
+                  onClick={handlePlaceOrder}
+                  type="submit"
+                >
+                  Place Order - ₹{total}
+                </Button>
                 <Button
                   type="button"
-                  className="w-full bg-red-500 hover:bg-red-600 py-6 text-lg"
+                  variant="outline"
+                  className="w-full mt-2 py-6 text-lg border-gray-300 text-gray-700 hover:bg-gray-100"
+                  onClick={() => router.push("/cart")}
+                >
+                  Edit Cart
+                </Button>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  className="w-full mt-2 py-6 text-lg"
                   onClick={() => {
-                    router.push("/food");
+                  if (window.confirm("Are you sure you want to cancel your order?")) {
                     clearCart();
+                    router.push("/food");
+                  }
                   }}
                 >
                   Cancel Order

@@ -121,7 +121,7 @@ export default function CartPage() {
                   </Button>
                 </Link>
                 <Link href="/food" className="block">
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full py-6 text-lg">
                     Continue Shopping
                   </Button>
                 </Link>

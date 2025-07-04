@@ -4,30 +4,28 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Clock, MapPin } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
+import { useCart } from "@/components/context/CartContext";
+import { v4 as uuidv4 } from 'uuid';
+
 
 export default function ThankYou() {
-  const orderNumber = Math.random().toString(36).substr(2, 9).toUpperCase();
+  const orderNumber = uuidv4().replace(/\D/g, '').slice(0, 3); // Generate a random 4-digit order number
   const estimatedTime = "25-30 minutes";
-  const items = []; 
+  // const items = []; 
+  // const {clearCart} = useCart();
 
-  function clearCart() {
-    // TODO: Implement cart clearing logic here
-    // For now, just a placeholder
-    console.log("Cart cleared!");
-  }
-
-  if (items.length === 0) return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
-      <ShoppingBag className="h-24 w-24 text-gray-300 mb-6" />
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Your cart is empty</h1>
-      <p className="text-gray-600 mb-8">Add some delicious dishes to get started!</p>
-      <Link href="/food">
-        <Button className="bg-green-500 hover:bg-green-600">
-          Browse Menu
-        </Button>
-      </Link>
-    </div>
-  );
+  // if (items.length === 0) return (
+  //   <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
+  //     <ShoppingBag className="h-24 w-24 text-gray-300 mb-6" />
+  //     <h1 className="text-3xl font-bold text-gray-900 mb-4">Your cart is empty</h1>
+  //     <p className="text-gray-600 mb-8">Add some delicious dishes to get started!</p>
+  //     <Link href="/food">
+  //       <Button className="bg-green-500 hover:bg-green-600">
+  //         Browse Menu
+  //       </Button>
+  //     </Link>
+  //   </div>
+  // );
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -79,7 +77,7 @@ export default function ThankYou() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Order Number:</span>
-                    <span className="font-semibold">#{orderNumber}</span>
+                    <span className="font-semibold">{orderNumber}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Order Date:</span>
@@ -118,7 +116,7 @@ export default function ThankYou() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/food">
-              <Button className="bg-green-500 hover:bg-green-600" onClick={clearCart}>
+              <Button className="bg-green-500 hover:bg-green-600">
                 Order Again
               </Button>
             </Link>
