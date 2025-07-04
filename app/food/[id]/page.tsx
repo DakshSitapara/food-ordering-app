@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,8 +13,8 @@ import toast from "react-hot-toast";
 
 const allDishes = Object.values(dishDetails);
 
-export default function DishDetailPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default function DishDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const dish = allDishes.find(d => d.id === id);
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
