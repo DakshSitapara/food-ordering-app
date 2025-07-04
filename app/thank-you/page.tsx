@@ -9,21 +9,18 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default function ThankYou() {
   const [lastOrder, setLastOrder] = useState<any[]>([]);
-  const [hasMounted, setHasMounted] = useState(false);
   const orderNumber = uuidv4().replace(/\D/g, '').slice(0, 3);
   const estimatedTime = "25-30 minutes";
 
   useEffect(() => {
     const storedOrder = JSON.parse(localStorage.getItem("lastOrder") || "[]");
     setLastOrder(storedOrder);
-    setHasMounted(true);
   }, []);
 
   const clearLastOrder = () => {
     localStorage.removeItem("lastOrder");
   };
 
-  if (!hasMounted) return null;
 
   if (lastOrder.length === 0) {
     return (
