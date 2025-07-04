@@ -1,5 +1,3 @@
-'use client'; 
-
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -39,7 +37,7 @@ export const useCart = create<CartStore>()(
       updateQuantity: (id, quantity) =>
         set((state) => ({
           items: state.items.map((i) =>
-            i.id === id ? { ...i, quantity: Math.max(1, quantity) } : i
+            i.id === id ? { ...i, quantity: quantity || 1 } : i
           ),
         })),
       removeFromCart: (id) =>
