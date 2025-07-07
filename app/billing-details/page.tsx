@@ -60,7 +60,7 @@ export default function BillingDetailsPage() {
         <ShoppingBag className="h-24 w-24 text-gray-300 mb-6" />
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Your cart is empty</h1>
         <p className="text-gray-600 mb-8">Add some delicious dishes to get started!</p>
-        <Link href="/food">
+        <Link href="/">
           <Button className="bg-green-500 hover:bg-green-600">
             Browse Menu
           </Button>
@@ -210,7 +210,7 @@ export default function BillingDetailsPage() {
                   onClick={() => {
                   if (window.confirm("Are you sure you want to cancel your order?")) {
                     clearCart();
-                    router.push("/food");
+                    router.push("/");
                   }
                   }}
                 >

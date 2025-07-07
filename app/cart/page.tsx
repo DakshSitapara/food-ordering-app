@@ -23,7 +23,7 @@ export default function CartPage() {
         <ShoppingBag className="h-24 w-24 text-gray-300 mb-6" />
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Your cart is empty</h1>
         <p className="text-gray-600 mb-8">Add some delicious dishes to get started!</p>
-        <Link href="/food">
+        <Link href="/">
           <Button className="bg-green-500 hover:bg-green-600">
             Browse Menu
           </Button>
@@ -120,7 +120,7 @@ export default function CartPage() {
             Proceed to Checkout
             </Button>
           </Link>
-          <Link href="/food" className="block">
+          <Link href="/" className="block">
             <Button variant="outline" className="w-full py-4 sm:py-6 text-base sm:text-lg">
             Continue Shopping
             </Button>

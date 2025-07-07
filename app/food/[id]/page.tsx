@@ -44,7 +44,7 @@ export default function DishDetailPage({ params }: { params: Promise<{ id: strin
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Dish not found</h1>
-          <Button onClick={() => router.push("/food")}>Back to Menu</Button>
+          <Button onClick={() => router.push("/")}>Back to Menu</Button>
         </div>
       </div>
     );
@@ -55,7 +55,7 @@ export default function DishDetailPage({ params }: { params: Promise<{ id: strin
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-6">
       <div className="flex items-center justify-between mb-4">
         <Link
-        href="/food"
+        href="/"
         className="inline-flex items-center text-green-600 hover:text-green-700 transition-colors"
         >
         <ArrowLeft className="h-4 w-4 mr-2" />
