@@ -15,9 +15,8 @@ import { ShoppingBag } from "lucide-react";
 function getTotal(items: { price: number; quantity: number }[]) {
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const delivery = subtotal > 500 ? 0 : 40;
-  const tax = Math.round(subtotal * 0.05);
-  const total = subtotal + delivery + tax;
-  return { subtotal, delivery, tax, total };
+  const total = subtotal + delivery;
+  return { subtotal, delivery, total };
 }
 
 export default function BillingDetailsPage() {
@@ -38,7 +37,7 @@ export default function BillingDetailsPage() {
     cardHolderName: ""
   });
 
-  const { subtotal, delivery, tax, total } = getTotal(items);
+  const { subtotal, delivery, total } = getTotal(items);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -185,7 +184,6 @@ export default function BillingDetailsPage() {
                 <hr />
                 <div className="flex justify-between"><span>Subtotal</span><span>₹{subtotal}</span></div>
                 <div className="flex justify-between"><span>Delivery</span><span>{delivery === 0 ? "FREE" : `₹${delivery}`}</span></div>
-                <div className="flex justify-between"><span>Tax (5%)</span><span>₹{tax}</span></div>
                 <hr />
                 <div className="flex justify-between text-xl font-bold"><span>Total</span><span>₹{total}</span></div>
                 <Button

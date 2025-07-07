@@ -14,8 +14,7 @@ export default function CartPage() {
 
   const totalPrice = getTotalPrice(items);
   const deliveryFee = totalPrice > 500 ? 0 : 40;
-  const tax = Math.round(totalPrice * 0.05);
-  const finalTotal = totalPrice + deliveryFee + tax;
+  const finalTotal = totalPrice + deliveryFee;
 
   if (items.length === 0) {
     return (
@@ -100,10 +99,6 @@ export default function CartPage() {
             <span className={deliveryFee === 0 ? "text-green-600" : ""}>
             {deliveryFee === 0 ? "FREE" : `₹${deliveryFee}`}
             </span>
-          </div>
-          <div className="flex justify-between">
-            <span>Tax (5%)</span>
-            <span>₹{tax}</span>
           </div>
           <hr />
           <div className="flex justify-between text-lg sm:text-xl font-bold">

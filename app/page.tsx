@@ -110,7 +110,6 @@ const FoodPage = () => {
           
           <CardContent className="p-4">
             <h3 className="text-xl font-semibold mb-2">{dish.name}</h3>
-            {/* <p className="text-gray-600 text-sm mb-3">{dish.description}</p> */}            
             <div className="flex items-center gap-4 mb-3">
             <div className="flex items-center gap-1">
               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />

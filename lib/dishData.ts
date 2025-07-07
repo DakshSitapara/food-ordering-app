@@ -69,6 +69,7 @@ const dishDetails: Record<string, any> = {
       fat: "15g"
     }
   },
+
   "5": {
     id: "5",
     name: "French Fries",
@@ -86,6 +87,7 @@ const dishDetails: Record<string, any> = {
       fat: "15g"
     }
   },
+  
   "6": {
     id: "6",
     name: "Paneer Tikka",
